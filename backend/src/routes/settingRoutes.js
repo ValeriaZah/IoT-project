@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getThresholds, updateThresholds } = require('../controllers/settingsController');
+const { getThresholds, updateThresholds } = require('../controllers/settingController');
 
 router.get('/', getThresholds);
 router.post('/', updateThresholds);

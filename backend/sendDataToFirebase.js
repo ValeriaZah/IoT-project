@@ -1,6 +1,8 @@
 const { initializeApp, cert } = require("firebase-admin/app");
 const { getFirestore } = require("firebase-admin/firestore");
 const serviceAccount = require("./iot-firebase-key.json");
+const snap = await db.collection('config').doc('thresholds').get();
+const THRESHOLDS = snap.data();
 
 // Initialize Firebase
 initializeApp({

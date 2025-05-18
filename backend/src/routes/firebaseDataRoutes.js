@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../firebase');
 
-// Получить все алерты
+
 router.get('/alerts', async (req, res) => {
   try {
     const snapshot = await db.collection('alerts').orderBy('dateTime', 'desc').get();
@@ -13,7 +13,7 @@ router.get('/alerts', async (req, res) => {
   }
 });
 
-// Получить все сенсоры
+
 router.get('/monitoring', async (req, res) => {
   try {
     const snapshot = await db.collection('sensors').orderBy('dateTime', 'desc').get();
@@ -24,7 +24,7 @@ router.get('/monitoring', async (req, res) => {
   }
 });
 
-// Получить данные по конкретному сенсору
+
 router.get('/monitoring/:id', async (req, res) => {
   const { id } = req.params;
   try {
@@ -40,7 +40,7 @@ router.get('/monitoring/:id', async (req, res) => {
   }
 });
 
-// Confirm alert
+
 router.patch('/alerts/:id/confirm', async (req, res) => {
   const { id } = req.params;
   try {
@@ -52,6 +52,49 @@ router.patch('/alerts/:id/confirm', async (req, res) => {
     res.json({ message: 'Alert confirmed' });
   } catch (err) {
     res.status(500).json({ message: 'Failed to confirm alert', error: err });
+  }
+});
+
+
+async function getThresholds() {
+  const snap = await db.collection('config').doc('thresholds').get();
+  return snap.exists ? snap.data() : null;
+}
+
+
+router.post('/gateway', async (req, res) => {
+  try {
+    const data = req.body;
+     console.log('📥 Mame data ', data); 
+
+    await db.collection('sensors').add(data);
+
+
+    const thresholds = await getThresholds();
+    if (!thresholds) {
+      return res.status(500).json({ message: 'Threshold config not found' });
+    }
+
+    const shouldAlert =
+      data.temperature > thresholds.tempMax ||
+      data.co2Level > thresholds.co2Max ||
+      data.humidity < thresholds.humidityMin;
+
+    if (shouldAlert) {
+      const alertData = {
+        ...data,
+        status: 'Active',
+        confirmed: false
+      };
+      await db.collection('alerts').add(alertData);
+      console.log('⚠️ Alert triggered');
+    }
+
+    res.status(201).json({ message: 'Data received and processed' });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Failed to handle gateway data', error: err });
   }
 });
 
