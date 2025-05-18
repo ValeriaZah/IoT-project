@@ -8,10 +8,18 @@ const testRoutes = require('./routes/testRoutes');
 const firbasedataRoutes = require('./routes/firebaseDataRoutes');
 const settingRoutes = require('./routes/settingRoutes');
 
+const path = require('path');
+
 const app = express();
 
 app.get('/', (req, res) => {
   res.send('🔥 Backend API is running!');
+});
+
+app.use(express.static(path.join(__dirname, '../frontend/build')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
 });
 
 app.use(cors());
