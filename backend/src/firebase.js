@@ -1,10 +1,14 @@
-const admin = require("firebase-admin");
-const serviceAccount = require("./iot-project-36b08-firebase-adminsdk-fbsvc-0b07608f6a.json");
+const { initializeApp, cert } = require('firebase-admin/app');
+const { getFirestore } = require('firebase-admin/firestore');
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
+// Читаем секрет из переменной окружения
+const serviceAccount = JSON.parse(
+  Buffer.from(process.env.FIREBASE_CONFIG_BASE64, 'base64').toString('utf-8')
+);
+
+initializeApp({
+  credential: cert(serviceAccount),
 });
 
-const db = admin.firestore(); // nebo: admin.database() pro Realtime DB
-
+const db = getFirestore();
 module.exports = db;
