@@ -1,5 +1,4 @@
 # Dockerfile
-
 FROM node:18
 
 WORKDIR /app
@@ -9,8 +8,5 @@ RUN npm install
 
 COPY . .
 
-# Укажем порт, который слушает Express
-ENV PORT=5001
-
-# Исправленный путь:
+# Render запускает этот файл как стартовый
 CMD ["node", "src/server.js"]
