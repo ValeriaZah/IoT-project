@@ -10,6 +10,9 @@ const settingRoutes = require('./routes/settingRoutes');
 
 const app = express();
 
+app.get('/', (req, res) => {
+  res.send('🔥 Backend API is running!');
+});
 
 app.use(cors());
 app.use(express.json());
