@@ -7,7 +7,7 @@ const AlertDetail = () => {
   const [alert, setAlert] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:5001/api/firebasedata/alerts')
+    axios.get('https://wildfireeye.onrender.com/api/firebasedata/alerts')
       .then(res => {
         const found = res.data.find(a => a._id === id);
         setAlert(found || null);

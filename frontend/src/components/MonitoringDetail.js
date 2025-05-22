@@ -11,7 +11,7 @@ const MonitoringDetail = () => {
   const [timeRange, setTimeRange] = useState('24h');
 
   useEffect(() => {
-    axios.get(`http://localhost:5001/api/firebasedata/monitoring/${id}`)
+    axios.get(`https://wildfireeye.onrender.com/api/firebasedata/monitoring/${id}`)
       .then(res => setData(res.data))
       .catch(err => console.error(err));
   }, [id]);

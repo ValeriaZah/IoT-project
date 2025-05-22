@@ -15,7 +15,7 @@ const SystemAlert = () => {
 
   const handleConfirm = async (id) => {
     try {
-      await axios.patch(`http://localhost:5001/api/firebasedata/alerts/${id}/confirm`);
+      await axios.patch(`https://wildfireeye.onrender.com/api/firebasedata/alerts/${id}/confirm`);
       setAlerts(prev =>
         prev.map(a => a._id === id ? { ...a, confirmed: true, status: 'Confirmed' } : a)
       );

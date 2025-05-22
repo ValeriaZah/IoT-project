@@ -36,11 +36,11 @@ const Dashboard = () => {
   const [alerts, setAlerts] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5001/api/firebasedata/monitoring')
+    axios.get('https://wildfireeye.onrender.com/api/firebasedata/monitoring')
       .then(res => setSensorData(res.data))
       .catch(err => console.error('Sensor data error:', err));
 
-    axios.get('http://localhost:5001/api/firebasedata/alerts')
+    axios.get('https://wildfireeye.onrender.com/api/firebasedata/alerts')
       .then(res => setAlerts(res.data))
       .catch(err => console.error('Alerts error:', err));
   }, []);

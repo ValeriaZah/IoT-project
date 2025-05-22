@@ -20,7 +20,7 @@ const Settings = () => {
 
   const handleSave = async () => {
   try {
-    await axios.post('http://localhost:5001/api/settings', settings);
+    await axios.post('https://wildfireeye.onrender.com/api/settings', settings);
     alert('Settings saved!');
   } catch (error) {
     console.error('Error saving settings:', error);

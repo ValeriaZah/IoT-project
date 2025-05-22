@@ -11,7 +11,7 @@ const SensorMonitoring = () => {
   const [showMap, setShowMap] = useState(false);
 
   useEffect(() => {
-    axios.get('http://localhost:5001/api/firebasedata/monitoring')
+    axios.get('https://wildfireeye.onrender.com/api/firebasedata/monitoring')
       .then(res => setData(res.data))
       .catch(err => console.error(err));
   }, []);
