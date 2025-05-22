@@ -5,7 +5,7 @@
     background-color: var(--navbar-bg, #fff);
     padding: 12px 30px;
     font-family: sans-serif;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
 }
 
 .navbar a {

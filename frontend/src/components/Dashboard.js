@@ -101,7 +101,7 @@ const AlertsSection = ({ alerts }) => (
             <p><strong>Status:</strong> {alert.status}</p>
             <p><strong>Time:</strong> {new Date(alert.dateTime).toLocaleString()}</p>
             <p><strong>GPS:</strong> {alert.gps.join(', ')}</p>
-            <Link to={`/alerts/${alert._id}`} className="button">More</Link>
+            <Link to={`/alerts/${alert._id}`} className="button-alert">More</Link>
           </div>
         ))}
       </div>

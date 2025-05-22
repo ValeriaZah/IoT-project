@@ -18,6 +18,7 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-links">
+        <Link to="/">WildFireEye</Link>
         <Link to="/dashboard">Dashboard</Link>
         <Link to="/monitoring">Monitoring</Link>
         <Link to="/alerts">Alerts</Link>

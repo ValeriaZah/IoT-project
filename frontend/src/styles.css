@@ -1,10 +1,16 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 :root {
     --primary-color: #64829B;
     --secondary-color: #A0C4DC;
     --accent-color: #686C33;
 
-    --background-color: #F6F4F5;
-    --card-bg: #C5BAA9;
+    --background-color: #f5f7fa;
+    --card-bg: #fff;
     --text-color: #1e1e1e;
 
     --input-bg: #ffffff;
@@ -34,98 +40,126 @@
     --button-hover-bg: #355166;
 
     --alert-border: #f87171;
+
     [data-theme='dark'] {
-            --bg-color: #1e1e1e;
-            --text-color: #f9fafb;
-            /* светло-белый */
-            --input-bg: #2a2a2a;
-            --input-border: #555;
-            --card-bg: #2f2f2f;
-            --button-bg: #4d6b83;
-            --button-hover: #355166;
-    
-            --temperature-color: #fca5a5;
-            /* светлый красный */
-            --co2-color: #f97316;
-            /* светло-оранжевый */
-            --humidity-color: #60a5fa;
-            /* светло-синий */
-            --gps-color: #a5b4fc;
-            /* нежный фиолетово-синий */
-            --timestamp-color: #d1d5db;
-            /* серый, но светлый */
-        }
+        --bg-color: #1e1e1e;
+        --text-color: #f9fafb;
+        /* светло-белый */
+        --input-bg: #2a2a2a;
+        --input-border: #555;
+        --card-bg: #2f2f2f;
+        --button-bg: #4d6b83;
+        --button-hover: #355166;
+
+        --temperature-color: #fca5a5;
+        /* светлый красный */
+        --co2-color: #f97316;
+        /* светло-оранжевый */
+        --humidity-color: #60a5fa;
+        /* светло-синий */
+        --gps-color: #a5b4fc;
+        /* нежный фиолетово-синий */
+        --timestamp-color: #d1d5db;
+        /* серый, но светлый */
+    }
 }
 
-body,
-.dashboard-container {
+body{
     background-color: var(--background-color);
     color: var(--text-color);
     font-family: 'Inter', sans-serif;
-    padding: 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.navbar {
+
+/* 🔥 Modern Dashboard Styles */
+.dashboard-container {
+    padding: 2rem;
+    max-width: 1800px;
+    margin: 0 auto;
+    font-family: 'Segoe UI', sans-serif;
+    color: var(--text-color);
+    background: var(--background-color);
+}
+
+.dashboard-header {
     display: flex;
-    gap: 15px;
-    background-color: var(--primary-color);
-    padding: 12px 24px;
-    border-radius: 8px;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
 }
 
-.navbar a,
-.navbar button {
-    color: white;
-    text-decoration: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 15px;
+.dashboard-map-full {
+    height: 350px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--input-border);
+    margin-bottom: 2rem;
 }
 
-.navbar a:hover,
-.navbar button:hover {
-    text-decoration: underline;
+.dashboard-map-full .leaflet-container {
+    height: 100%;
+    width: 100%;
+    filter: grayscale(0.05) brightness(1.03);
 }
 
-.section {
-    margin-bottom: 40px;
+h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-color);
 }
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
 }
 
+.card,
 .sensor-card {
     background-color: var(--card-bg);
     color: var(--text-color);
-    border-radius: 16px;
-    padding: 20px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    border-radius: 14px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
 }
 
+.card:hover,
 .sensor-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
-.sensor-card h4 {
-    margin-bottom: 8px;
-    font-size: 18px;
+.alert-card {
+    border-left: 6px solid var(--alert-border);
+    background-color: var(--alert-bg);
+    color: var(--alert-text);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 6px 16px rgba(239, 68, 68, 0.2);
+}
+
+[data-theme='dark'] .alert-card {
+    background-color: #2f1b1b;
+    color: #fecaca;
+    border-left-color: #f87171;
+}
+.button-alert {
+    background-color: #f87171;
+    color: white;
+    border: none;
+    padding: 10px 16px;
     font-weight: 600;
-    color: var(--primary-color);
-}
-
-.sensor-card p {
-    margin: 4px 0;
     font-size: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+        margin-top: 0.75rem;
+            display: inline-block;
+    text-decoration: none;
 }
 
 .sensor-card .label {
@@ -133,49 +167,60 @@ body,
     color: var(--text-color);
 }
 
-.sensor-card .value {
-    font-weight: 400;
+.sensor-card .value,
+.sensor-card .temp-value,
+.sensor-card .humidity-value,
+.sensor-card .co2-value,
+.sensor-card .date-value {
+    font-weight: 500;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.temp-value {
+    color: #dc2626;
+    font-weight: 600;
+}
+
+.humidity-value {
+    color: #2563eb;
+    font-weight: 600;
+}
+
+.co2-value {
+    color: #92400e;
+    font-weight: 600;
+}
+
+.date-value {
     color: #4b5563;
-    
-}
-.value.temp {
-    color: var(--temperature-color);
+    font-size: 13px;
 }
 
-.value.co2 {
-    color: var(--co2-color);
+.button {
+    margin-top: 0.75rem;
+    display: inline-block;
+    background-color: var(--button-bg);
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    text-align: center;
 }
 
-.value.humidity {
-    color: var(--humidity-color);
+.button:hover {
+    background-color: var(--button-hover-bg);
 }
 
-.value.gps {
-    color: var(--gps-color);
+@media screen and (max-width: 768px) {
+    .dashboard-map-full {
+        height: 250px;
+    }
 }
-
-.value.timestamp {
-    color: var(--timestamp-color);
-}
-.sensor-card .footer {
-    margin-top: 12px;
-}
-
-.alert-card {
-    border-left: 6px solid var(--alert-border);
-    background-color: #fef2f2;
-    color: #991b1b;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.alert-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
-}
-
 [data-theme='dark'] .alert-card {
     background-color: #2f1b1b;
     color: #fecaca;
@@ -218,6 +263,7 @@ body,
     flex-wrap: wrap;
     margin-bottom: 20px;
 }
+
 .button {
     display: inline-block;
     background-color: var(--button-bg);
@@ -230,6 +276,7 @@ body,
     cursor: pointer;
     text-align: center;
     transition: background-color 0.2s ease;
+    text-decoration: none;
 }
 
 .button:hover {
@@ -260,6 +307,7 @@ body,
         height: 250px;
     }
 }
+
 .temp-value {
     color: #dc2626;
     /* красный — температура */
@@ -301,6 +349,7 @@ body,
     /* коричневый для CO₂ */
     font-weight: 600;
 }
+
 .sensor-table {
     width: 100%;
     border-collapse: separate;
@@ -334,6 +383,7 @@ body,
     background-color: var(--input-hover-bg);
     transition: background-color 0.2s ease;
 }
+
 .sensor-link {
     color: var(--accent-color);
     font-weight: 600;
@@ -356,6 +406,7 @@ body,
     transform: scale(1.005);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
+
 .sensor-table thead {
     background-color: var(--secondary-color);
     /* мягкий голубой */
@@ -363,6 +414,7 @@ body,
     font-weight: 600;
     text-align: left;
 }
+
 .sort-panel select {
     padding: 8px 12px;
     font-size: 15px;
@@ -385,6 +437,7 @@ body,
     font-size: 14px;
     color: var(--text-color);
 }
+
 [data-theme="dark"] .sensor-table {
     background-color: var(--card-bg);
     color: var(--text-color);
@@ -415,11 +468,11 @@ body,
 [data-theme="dark"] .sort-panel select:hover {
     background-color: #555;
 }
+
 /* alert  */
 :root {
     --bg-color: #ffffff;
     --text-color: #000;
-    --card-bg: #d9d9d9;
     --button-bg: #bcbcbc;
     --button-hover: #a3a3a3;
     --alert-border: #dc2626;
@@ -626,27 +679,8 @@ body,
     gap: 10px;
     flex-wrap: wrap;
 }
+
 /* setting */
-
-:root {
-    --bg-color: #f6f4f5;
-    --text-color: #111827;
-    --input-bg: #ffffff;
-    --input-border: #cbd5e1;
-    --card-bg: #E7E8E3;
-    --button-bg: #64829b;
-    --button-hover: #4d6b83;
-}
-
-[data-theme='dark'] {
-    --bg-color: #1e1e1e;
-    --text-color: #f3f3f3;
-    --input-bg: #2b2b2b;
-    --input-border: #444;
-    --card-bg: #3a3a3a;
-    --button-bg: #4d6b83;
-    --button-hover: #355166;
-}
 
 .settings-container {
     background-color: var(--bg-color);
@@ -732,6 +766,7 @@ body,
     background-color: var(--button-hover);
     transform: translateY(-1px);
 }
+
 /* login */
 
 /* 🔐 LOGIN PAGE */
@@ -806,4 +841,78 @@ body,
     border-color: var(--input-border);
     background-color: var(--input-bg);
     color: var(--text-color);
+}
+
+/* HomePage.css */
+
+.home-container {
+    padding: 3rem 2rem;
+    background: linear-gradient(to right, #f9f9f9, #e6f0ff);
+    min-height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.home-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.home-header h1 {
+    font-size: 2.8rem;
+    color: #1a3e72;
+    margin-bottom: 0.5rem;
+}
+
+.home-header p {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+/* Секция с карточками */
+.features-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+}
+
+/* Карточки фич */
+.feature-card {
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    padding: 2rem;
+    width: 300px;
+    transition: transform 0.3s ease;
+    text-align: center;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.feature-card h2 {
+    font-size: 1.5rem;
+    color: #1a3e72;
+    margin-bottom: 1rem;
+}
+
+.feature-card p {
+    font-size: 1rem;
+    color: #444;
+}
+
+/* 🌙 Темная тема для HomePage */
+.home-container.dark {
+    background-color: #121212;
+    color: #f0f0f0;
+}
+
+.home-container.dark .feature-card {
+    background-color: #1f1f1f;
+    border: 1px solid #333;
+    color: #fff;
 }
